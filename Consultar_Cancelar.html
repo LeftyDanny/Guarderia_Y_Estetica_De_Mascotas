@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar y Cancelar Citas - Guardería y Estética de Mascotas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Consultar y Cancelar Citas</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+                <li><a href="agendar.html">Agendar Cita</a></li>
+                <li><a href="consultar_cancelar.html">Consultar/Cancelar Citas</a></li>
+                <li><a href="gestionar.html">Gestionar Datos</a></li>
+                <li><a href="reseñar.html">Reseñar</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo de la Guardería y Estética de Mascotas" class="logo">
+    </div>
+    <main>
+        <form id="consultar-form">
+            <label for="mascota">Nombre de la Mascota:</label>
+            <input type="text" id="mascota" name="mascota" required>
+            <button type="submit">Consultar Citas</button>
+        </form>
+        <div id="citas-list"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Guardería y Estética de Mascotas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

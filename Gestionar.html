@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Datos - Guardería y Estética de Mascotas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Gestionar Datos</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+                <li><a href="agendar.html">Agendar Cita</a></li>
+                <li><a href="consultar_cancelar.html">Consultar/Cancelar Citas</a></li>
+                <li><a href="gestionar.html">Gestionar Datos</a></li>
+                <li><a href="reseñar.html">Reseñar</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo de la Guardería y Estética de Mascotas" class="logo">
+    </div>
+    <main>
+        <section id="gestionar-usuarios">
+            <h2>Gestionar Usuarios</h2>
+            <form id="gestionar-usuario-form">
+                <label for="nombre-usuario">Nombre de Usuario:</label>
+                <input type="text" id="nombre-usuario" name="nombre-usuario" required>
+                <label for="correo-usuario">Correo Electrónico:</label>
+                <input type="email" id="correo-usuario" name="correo-usuario" required>
+                <button type="submit">Añadir Usuario</button>
+            </form>
+        </section>
+
+        <section id="gestionar-mascotas">
+            <h2>Gestionar Mascotas</h2>
+            <form id="gestionar-mascota-form">
+                <label for="nombre-mascota">Nombre de la Mascota:</label>
+                <input type="text" id="nombre-mascota" name="nombre-mascota" required>
+                <label for="tipo-mascota">Tipo de Mascota:</label>
+                <select id="tipo-mascota" name="tipo-mascota" required>
+                    <option value="perro">Perro</option>
+                    <option value="gato">Gato</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <button type="submit">Añadir Mascota</button>
+            </form>
+        </section>
+
+        <section id="gestionar-servicios">
+            <h2>Gestionar Servicios</h2>
+            <form id="gestionar-servicio-form">
+                <label for="nombre-servicio">Nombre del Servicio:</label>
+                <input type="text" id="nombre-servicio" name="nombre-servicio" required>
+                <label for="precio-servicio">Precio del Servicio:</label>
+                <input type="number" id="precio-servicio" name="precio-servicio" required>
+                <button type="submit">Añadir Servicio</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Guardería y Estética de Mascotas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
