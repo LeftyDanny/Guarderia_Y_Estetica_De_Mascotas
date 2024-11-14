@@ -16,18 +16,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-            if (username === 'admin' && password === 'admin') {
+        fetch('login.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'username': username,
+                'password': password
+            }),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === 'Login exitoso!') {
                 localStorage.setItem('isLoggedIn', 'true');
                 window.location.href = 'index.html';
             } else {
                 alert('Usuario o contraseña incorrectos.');
             }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            alert('Hubo un error al procesar el inicio de sesión.');
         });
-    }
+    });
+}
 
     // Manejo del formulario de agendar cita
     const agendarForm = document.getElementById('agendar-form');
