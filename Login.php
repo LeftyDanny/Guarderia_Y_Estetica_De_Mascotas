@@ -1,20 +1,20 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$user = "root";
+$pass = "";
 $dbname = "guarderia_y_estetica_de_mascotas";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $user, $pass, $dbname);
 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    $sql = "SELECT * FROM usuarios WHERE username = '$user' AND password = '$pass'";
+    $sql = "SELECT * FROM usuarios WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
