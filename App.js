@@ -1,6 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Verificar si el usuario está logueado
     const loginLink = document.getElementById('login-link');
+    const logoutLink = document.getElementById('logout-link');
+    fetch('check_session.php')  // Archivo PHP para verificar la sesión
+        .then(response => response.json())
+        .then(data => {
+            if (data.isLoggedIn) {
+                loginLink.textContent = 'Cerrar Sesión';
+                loginLink.href = 'logout.php';  // Redirige a logout.php cuando se hace clic
+            } else {
+                loginLink.textContent = 'Iniciar Sesión';
+                loginLink.href = 'login.html';
+            }
+        })
+        .catch(error => console.error('Error:', error));
 
     // Manejo del formulario de inicio de sesión
     const loginForm = document.getElementById('login-form');
