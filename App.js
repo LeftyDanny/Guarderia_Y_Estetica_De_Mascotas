@@ -1,21 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar si el usuario está logueado
-    const loginLink = document.getElementById('login-link');
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
+// Verificar si el usuario está logueado
+const loginLink = document.getElementById('login-link');
+    
+// Solicitar al backend si el usuario está autenticado
+fetch('check_session.php')  // Un archivo PHP que verifica la sesión en el servidor
+    .then(response => response.json())
+    .then(data => {
+        if (data.isLoggedIn) {
+            loginLink.textContent = 'Cerrar Sesión';
+            loginLink.href = '#';
+            loginLink.addEventListener('click', function() {
+                fetch('logout.php')  // Un archivo PHP para cerrar sesión
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = 'index.html';
+                        }
+                    });
+            });
+        } else {
+            loginLink.textContent = 'Iniciar Sesión';
+            loginLink.href = 'login.html';  // Redirigir al formulario de login
+        }
+    });
 
-    if (isLoggedIn === 'true') {
-        loginLink.textContent = 'Cerrar Sesión';
-        loginLink.href = '#';
-        loginLink.addEventListener('click', function() {
-            localStorage.setItem('isLoggedIn', 'false');
-            window.location.href = 'index.html';
-        });
-    }
-
-    // Manejo del formulario de inicio de sesión
-    const loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
+// Manejo del formulario de inicio de sesión
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
@@ -23,24 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('login.php', {
             method: 'POST',
             body: new URLSearchParams({
-                'username': username,
-                'password': password
+                username: username,
+                password: password
             }),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         })
         .then(response => response.text())
         .then(data => {
-            if (data === 'Login exitoso!') {
-                localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = 'index.html';
+            if (data === "Login exitoso!") {
+                window.location.href = 'index.html';  // Redirigir al inicio
             } else {
-                alert('Usuario o contraseña incorrectos.');
+                alert(data);
             }
         })
-        .catch(error => {
-            console.error('Error en la solicitud:', error);
-            alert('Hubo un error al procesar el inicio de sesión.');
-        });
+        .catch(error => console.error('Error:', error));
     });
 }
 

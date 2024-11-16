@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Guardería y Estética de Mascotas</title>
+    <title>Registro - Guardería y Estética de Mascotas</title>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Iniciar Sesión</h1>
+        <h1>Registrar Usuario</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -26,12 +26,12 @@
         <img src="logo.png" alt="Logo de la Guardería y Estética de Mascotas" class="logo">
     </div>
     <main>
-        <form action="Login.php" method="POST">
-            <label for="username">Usuario:</label>
+        <form id="registro-form" action="registro.php" method="POST">
+            <label for="username">Nombre de Usuario:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit">Registrar</button>
         </form>
     </main>
     <footer>
