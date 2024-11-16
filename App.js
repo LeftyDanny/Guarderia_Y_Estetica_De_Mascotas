@@ -1,58 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
-// Verificar si el usuario está logueado
-const loginLink = document.getElementById('login-link');
-    
-// Solicitar al backend si el usuario está autenticado
-fetch('check_session.php')  // Un archivo PHP que verifica la sesión en el servidor
-    .then(response => response.json())
-    .then(data => {
-        if (data.isLoggedIn) {
-            loginLink.textContent = 'Cerrar Sesión';
-            loginLink.href = '#';
-            loginLink.addEventListener('click', function() {
-                fetch('logout.php')  // Un archivo PHP para cerrar sesión
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            window.location.href = 'index.html';
-                        }
-                    });
-            });
-        } else {
-            loginLink.textContent = 'Iniciar Sesión';
-            loginLink.href = 'login.html';  // Redirigir al formulario de login
-        }
-    });
+    // Verificar si el usuario está logueado
+    const loginLink = document.getElementById('login-link');
 
-// Manejo del formulario de inicio de sesión
-const loginForm = document.getElementById('login-form');
-if (loginForm) {
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    // Manejo del formulario de inicio de sesión
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-        fetch('login.php', {
-            method: 'POST',
-            body: new URLSearchParams({
-                username: username,
-                password: password
-            }),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "Login exitoso!") {
-                window.location.href = 'index.html';  // Redirigir al inicio
-            } else {
-                alert(data);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    });
-}
+            fetch('login.php', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    username: username,
+                    password: password
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'index.html';  // Redirigir al inicio
+                } else {
+                    alert(data.message);  // Mostrar mensaje de error
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
 
     // Manejo del formulario de agendar cita
     const agendarForm = document.getElementById('agendar-form');

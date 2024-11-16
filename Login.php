@@ -1,12 +1,13 @@
 <?php
 session_start();
+
 $servername = "localhost";
-$user = "root";
-$pass = "";
+$username = "root";
+$password = "";
 $dbname = "guarderia_y_estetica_de_mascotas";
 
 // Crear la conexión
-$conn = new mysqli($servername, $user, $pass, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verificar la conexión
 if ($conn->connect_error) {
@@ -27,16 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        if (password_verify($password_input, $user['password'])) {
+        // Comparar la contraseña directamente sin usar hash
+        if ($password_input === $user['password']) {
             // Inicio de sesión exitoso, crear sesión
             $_SESSION['username'] = $user['username'];
             $_SESSION['isLoggedIn'] = true;
-            echo "Login exitoso!";
+            
+            // Enviar respuesta exitosa en formato JSON
+            echo json_encode(["success" => true, "message" => "Login exitoso!"]);
+            exit(); // Termina la ejecución
         } else {
-            echo "Contraseña incorrecta.";
+            echo json_encode(["success" => false, "message" => "Contraseña incorrecta."]);
         }
     } else {
-        echo "Usuario no encontrado.";
+        echo json_encode(["success" => false, "message" => "Usuario no encontrado."]);
     }
 }
 
